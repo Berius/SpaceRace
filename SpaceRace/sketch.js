@@ -7,6 +7,7 @@ let minSpeed=0.5;
 let maxSpeed = 2;
 let shipSpeed = 2;
 
+
 function setup() {
   createCanvas(600, 600);
   ship = new spaceShip(135,530,shipSpeed,0,135,500);
@@ -35,30 +36,55 @@ function draw() {
   }
   for(let i = 0; i <numberOfComets;i++){
     rightComets[i].show();
+    if(RectCircleColliding(rightComets[i], ship)){
+      ship.startAgain();
+    }
+    if(RectCircleColliding(rightComets[i], ship2)){
+      ship2.startAgain();
+    }
   }
    for(let i = 0; i <numberOfComets;i++){
      leftComets[i].show();
+     if(RectCircleColliding(leftComets[i], ship)){
+       ship.startAgain();
+     }
+     if(RectCircleColliding(leftComets[i], ship2)){
+       ship2.startAgain();
+     }
    }
   if(keyIsDown(UP_ARROW)){
-    ship.move();
-  }
-  if(keyIsDown(DOWN_ARROW)){
-    ship.moveDown();
-  }
-  if(keyIsDown(87)){
     ship2.move();
   }
-  if(keyIsDown(83)){
+  if(keyIsDown(DOWN_ARROW)){
     ship2.moveDown();
   }
-
+  if(keyIsDown(87)){
+    ship.move();
+  }
+  if(keyIsDown(83)){
+    ship.moveDown();
+  }
   ship.barrier();
   ship2.barrier();
-  ship.showPoints();
+  ship.win();
+  ship2.win();
+
 
 
 }
 
+function RectCircleColliding(comet, spaceShip) {
+    let bRight = spaceShip.x + 30;
+    let bLeft = spaceShip.x;
+    let bTop = spaceShip.y;
+    let bBottom = spaceShip.y + 70;
+
+    if(comet.x + 10 > bLeft && comet.x - 10 < bRight && comet.y + 10 > bTop && comet.y - 10 < bBottom){
+      return(true);
+    }else{
+      return false;
+    }
+}
 class comet{
   constructor(x ,y,s){
     this.x = x;
@@ -97,7 +123,11 @@ class spaceShip{
     this.scoreX = scoreX;
     this.scoreY = scoreY;
   }
-
+  win(){
+    if(this.score==3){
+      console.log("win");
+    }
+  }
   barrier(){
     if(this.y>height-70){
       this.y=530;
@@ -115,6 +145,9 @@ class spaceShip{
       this.score +=1;
     }
 
+  }
+  startAgain(){
+    this.y=530;
   }
   moveDown(){
     this.y -=-this.s;
