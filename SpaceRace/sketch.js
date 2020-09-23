@@ -13,10 +13,10 @@ function setup() {
   ship = new spaceShip(135,530,shipSpeed,0,135,500);
   ship2 = new spaceShip(width-165,530,shipSpeed,0,465,500);
   for(let i = 0; i <numberOfComets;i++){
-      rightComets[i] = new comet(0, random(0,400), random(minSpeed,maxSpeed));
+      rightComets[i] = new comet(random(-100,0), random(0,400), random(minSpeed,maxSpeed));
   }
   for(let i = 0; i <numberOfComets;i++){
-      leftComets[i] = new comet(600, random(0,400), random(minSpeed,maxSpeed));
+      leftComets[i] = new comet(random(600,700), random(0,400), random(minSpeed,maxSpeed));
   }
 }
 
