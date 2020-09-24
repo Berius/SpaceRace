@@ -8,8 +8,15 @@ let maxSpeed = 2;
 let shipSpeed = 2;
 
 
+
 function setup() {
   createCanvas(600, 600);
+  levelright1 = loadImage('1LevelRight.jpg');
+  Levelleft1 = loadImage('1LevelLeft.jpg');
+  levelright2 = loadImage('2LevelRight.jpg');
+  Levelleft2 = loadImage('2LevelLeft.jpg');
+  levelright3 = loadImage('3LevelRight.jpg');
+  Levelleft3 = loadImage('3LevelLeft.jpg');
   ship = new spaceShip(135,530,shipSpeed,0,135,500);
   ship2 = new spaceShip(width-165,530,shipSpeed,0,465,500);
   for(let i = 0; i <numberOfComets;i++){
@@ -23,7 +30,9 @@ function setup() {
 function draw() {
   background(50);
   stroke(250);
-  line(width/2,height,width/2,height-200);
+  line(width/2,height,width/2,0);
+  ship.changeLevel();
+  ship2.changeLevel();
   ship.showPoints();
   ship2.showPoints();
   ship.show();
@@ -137,6 +146,26 @@ class spaceShip{
     textSize(70);
     text(this.score,this.scoreX,this.scoreY);
     fill(255);
+  }
+  changeLevel(){
+    if(this.score==0 && this.x==135){
+      image(levelright1, 0, 0, 300, 600);
+    }
+    else if(this.score==0 && this.x==width-165){
+      image(Levelleft1, 301, 0, 300, 600);
+    }
+    else if(this.score==1 && this.x==135){
+      image(levelright2, 0, 0, 300, 600);
+    }
+    else if(this.score==1 && this.x==width-165){
+      image(Levelleft2, 301, 0, 300, 600);
+    }
+    else if(this.score==2 && this.x==135){
+      image(levelright3, 0, 0, 300, 600);
+    }
+    else if(this.score==2 && this.x==width-165){
+      image(Levelleft3, 301, 0, 300, 600);
+    }
   }
   move(){
     this.y +=-this.s;
